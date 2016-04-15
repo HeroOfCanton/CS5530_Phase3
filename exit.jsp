@@ -1,12 +1,13 @@
+<%@ page language="java" import="cs5530.*" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 	<head>
-		<title>UTrack - Phase 3</title>
+		<title>Exit</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 
 		<meta name="AUTHOR"      content="Ryan Welling"/>
 		<meta name="keywords"    content="University of Utah, Spring 2016"/>
-		<meta name="description" content="Utrack - Phase 3"/>
+		<meta name="description" content="Exit"/>
 
 		<!-- ALL CSS FILES -->
 		<!-- Latest compiled and minified CSS -->
@@ -25,7 +26,7 @@
 
 		<div class="jumbotron">
 			<div align="center">	
-				<h1 style="color: #e8002b; text-shadow: 2px 2px #000000;">Welcome to UTrack</h1>
+				<h1 style="color: #e8002b; text-shadow: 2px 2px #000000;">Good bye</h1>
 			</div>
 		</div>
 
