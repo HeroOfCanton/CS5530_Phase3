@@ -32,9 +32,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-12 text-center">
-					<a href="login.jsp"><button class="btn"><span>Login</span></button></a>
-					<a href="register.jsp"><button class="btn"><span>Register User</span></button></a>
-					<a href="exit.jsp"><button class="btn"><span>Exit</span></button></a>
+					
 				</div><!--col-sm-12-->
 			</div><!--row-->
 		</div><!--container-->

@@ -32,9 +32,11 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-12 text-center">
-					<a href="login.jsp"><button class="btn"><span>Login</span></button></a>
-					<a href="register.jsp"><button class="btn"><span>Register User</span></button></a>
-					<a href="exit.jsp"><button class="btn"><span>Exit</span></button></a>
+					<a href="admin/new_poi.jsp"><button class="btn"><span>New Poi</span></button></a>
+					<a href="admin/modify_poi.jsp"><button class="btn"><span>Modify Existing POI</span></button></a>
+					<a href="admin/awards.jsp"><button class="btn"><span>Awards</span></button></a>
+					<a href="admin/separation.jsp"><button class="btn"><span>Degrees of Separation</span></button></a>
+					<a href="index.html"><button class="btn"><span>Return</span></button></a>
 				</div><!--col-sm-12-->
 			</div><!--row-->
 		</div><!--container-->
