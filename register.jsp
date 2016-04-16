@@ -95,7 +95,8 @@
 					out.println("Registration failed. You failed. You're a failure.");
 				}
 			}
-
+			connector.closeStatement();
+ 			connector.closeConnection();
 		}
 		%>
 		
