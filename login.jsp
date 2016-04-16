@@ -60,7 +60,7 @@
 		} else {
 
 			Connector con = new Connector();
-			String userName = request.getParameter("Login").toLowerCase();
+			String userName = request.getParameter("login").toLowerCase();
 			String userPassword = request.getParameter("password");
 			Login login = new Login();
 			String type = login.verifyLogin(userName, userPassword, con.stmt);
