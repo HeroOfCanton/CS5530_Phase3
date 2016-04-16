@@ -1,3 +1,4 @@
+<%@ page language="java" import="cs5530.*" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 	<head>
@@ -32,13 +33,57 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-12 text-center">
-					
+					<a href="index.html"><button class="btn"><span>Return</span></button></a>
 				</div><!--col-sm-12-->
 			</div><!--row-->
 		</div><!--container-->
 
-		<!--<a href="orders.sql">orders.sql</a><br>
-		<a href="orders.jsp">orders.jsp</a><br>-->
+		<%
+		String searchAttribute = request.getParameter("searchAttribute");
+		if( searchAttribute == null ){
+		%>
+
+		<div class="container" style="padding-top: 50px;">
+			<div class="row">
+				<div class="col-sm-12 text-center">
+					<form name="user_search" method=get onsubmit="return check_all_fields(this)" action="login.jsp">
+					<input type=hidden name="searchAttribute">
+					<input type=text name="login">
+					<input type=text name="password">
+					<input type=submit>
+					</form>
+				</div><!--col-sm-12-->
+			</div><!--row-->
+		</div><!--container-->
+
+		<%
+		} else {
+
+			Connector con = new Connector();
+			String userName = request.getParameter("Login").toLowerCase();
+			String userPassword = request.getParameter("password");
+			Login login = new Login();
+			String type = login.verifyLogin(userName, userPassword, con.stmt);
+
+			//if(userType.equals("false")) { 
+			//%>
+    		//	Passwords do not match, please try again
+    		//<%	
+    		//}
+    		//else if(userType.equals("mismatch")) { %>
+
+    		//	<p>Login does not exist. Please register as a new user</p>
+			//<%    	
+    		//}
+    		if(type.equals("admin")) {
+    			response.sendRedirect("admin_menu.jsp");
+    		}
+    		else {
+    			response.sendRedirect("user_menu.jsp?name=" + userName);
+    		}
+
+		}
+		%>
 
 	</body>
 </html>

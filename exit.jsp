@@ -20,6 +20,13 @@
 
 		<!-- Latest compiled and minified JavaScript -->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+		<script type="text/javascript">
+        	$(document).ready(function(e) {
+				//window.open('', '_self', ''); 
+				window.close();
+			});
+		</script>
 	</head>
 
 	<body>
@@ -33,9 +40,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-12 text-center">
-					<a href="login.jsp"><button class="btn"><span>Login</span></button></a>
-					<a href="register.jsp"><button class="btn"><span>Register User</span></button></a>
-					<a href="exit.jsp"><button class="btn"><span>Exit</span></button></a>
+					
 				</div><!--col-sm-12-->
 			</div><!--row-->
 		</div><!--container-->
