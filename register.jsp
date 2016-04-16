@@ -76,6 +76,11 @@
 
 			String password1 = request.getParameter("password1");
 			String password2 = request.getParameter("password1");
+			String login = request.getParameter("login");
+			String realName = request.getParameter("realName");
+			String city = request.getParameter("city");
+			String state = request.getParameter("state");
+			String telephone = request.getParameter("telephone");
 			Connector con = new Connector();
 
 			if(!(password1.equals(password2))) {
