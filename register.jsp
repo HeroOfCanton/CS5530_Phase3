@@ -39,6 +39,60 @@
 			</div><!--row-->
 		</div><!--container-->
 
+		<%
+		String searchAttribute = request.getParameter("searchAttribute");
+		if( searchAttribute == null ){
+		%>
+
+		<div class="container" style="padding-top: 50px;">
+			<div class="row">
+				<div class="col-sm-4"></div>
+				<div class="col-sm-4 text-right">
+					<form name="register_user" method=get onsubmit="return check_all_fields(this)" action="register.jsp">
+					<input type=hidden name="searchAttribute">
+					Enter desired login
+					<input type=text name="login" placeholder="jsmith123"><br/>
+					Enter First and Last name
+					<input type=text name="realName" placeholder="John Smith"><br/>
+					Enter desired password
+					<input type=password name="password1"><br/>
+					Verify your password
+					<input type=password name="password2"><br/>
+					Enter your city
+					<input type=text name="city" placeholder="South Jordan"><br/>
+					Enter your state as a 2-letter abreviation
+					<input type=text name="state" placeholder="UT"><br/>
+					Enter your telephone with no spaces or characters
+					<input type=text name="telephone" placeholder="8015551234"><br/>
+					<input type=submit>
+					</form>
+				</div><!--col-sm-6-->
+				<div class="col-sm-4"></div>
+			</div><!--row-->
+		</div><!--container-->
+
+		<%
+		} else {
+
+			String password1 = request.getParameter("password1");
+			String password2 = request.getParameter("password1");
+			Connector con = new Connector();
+
+			if(!(password1.equals(password2))) {
+				out.println("Passwords to not match");
+			}
+			else {
+				Register register = new Register();
+				if(register.registerUser(login, realName, password1, city, state, telephone, con.stmt)) {
+					out.println("Thank you for registering");
+				}
+				else {
+					out.println("Registration failed. You failed. You're a failure.");
+				}
+			}
+
+		}
+		%>
 		
 	</body>
 </html>

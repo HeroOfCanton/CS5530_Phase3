@@ -48,8 +48,8 @@
 				<div class="col-sm-12 text-center">
 					<form name="user_search" method=get onsubmit="return check_all_fields(this)" action="login.jsp">
 					<input type=hidden name="searchAttribute">
-					<input type=text name="login">
-					<input type=text name="password">
+					<input type=text name="login" placeholder="login">
+					<input type=password name="password" placeholder="password">
 					<input type=submit>
 					</form>
 				</div><!--col-sm-12-->
