@@ -81,8 +81,7 @@
     		else {
     			response.sendRedirect("user_menu.jsp?name=" + userName);
     		}
-    		connector.closeStatement();
- 			connector.closeConnection();
+ 		con.closeConnection();
 		}
 		%>
 

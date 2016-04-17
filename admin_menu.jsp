@@ -34,10 +34,10 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-12 text-center">
-					<a href="admin/new_poi.jsp"><button class="btn"><span>New Poi</span></button></a>
-					<a href="admin/modify_poi.jsp"><button class="btn"><span>Modify Existing POI</span></button></a>
-					<a href="admin/awards.jsp"><button class="btn"><span>Awards</span></button></a>
-					<a href="admin/separation.jsp"><button class="btn"><span>Degrees of Separation</span></button></a>
+					<a href="new_poi.jsp"><button class="btn"><span>New Poi</span></button></a>
+					<a href="modify_poi.jsp"><button class="btn"><span>Modify Existing POI</span></button></a>
+					<a href="awards.jsp"><button class="btn"><span>Awards</span></button></a>
+					<a href="separation.jsp"><button class="btn"><span>Degrees of Separation</span></button></a>
 					<a href="index.html"><button class="btn"><span>Return</span></button></a>
 				</div><!--col-sm-12-->
 			</div><!--row-->

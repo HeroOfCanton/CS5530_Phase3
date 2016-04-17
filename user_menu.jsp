@@ -34,13 +34,13 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-12 text-center">
-					<a href="user/browse.jsp"><button class="btn"><span>Browse POI</span></button></a>
-					<a href="user/feedback.jsp"><button class="btn"><span>Give Feedback</span></button></a>
-					<a href="user/favorites.jsp"><button class="btn"><span>Manage Favorite</span></button></a>
-					<a href="user/visit.jsp"><button class="btn"><span>Record Visit</span></button></a>
-					<a href="user/trusted.jsp"><button class="btn"><span>Manage Trusted Users</span></button></a>
-					<a href="user/useful.jsp"><button class="btn"><span>Usefulness of Other Feedbacks</span></button></a>
-					<a href="user/statistics.jsp"><button class="btn"><span>Site Statistics</span></button></a>
+					<a href="browse.jsp"><button class="btn"><span>Browse POI</span></button></a>
+					<a href="feedback.jsp"><button class="btn"><span>Give Feedback</span></button></a>
+					<a href="favorites.jsp"><button class="btn"><span>Manage Favorite</span></button></a>
+					<a href="visit.jsp"><button class="btn"><span>Record Visit</span></button></a>
+					<a href="trusted.jsp"><button class="btn"><span>Manage Trusted Users</span></button></a>
+					<a href="useful.jsp"><button class="btn"><span>Usefulness of Other Feedbacks</span></button></a>
+					<a href="statistics.jsp"><button class="btn"><span>Site Statistics</span></button></a>
 					<a href="index.html"><button class="btn"><span>Return</span></button></a>
 				</div><!--col-sm-12-->
 			</div><!--row-->
