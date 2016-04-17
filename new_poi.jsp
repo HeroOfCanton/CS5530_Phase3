@@ -20,6 +20,19 @@
 
 		<!-- Latest compiled and minified JavaScript -->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+		<script type="text/javascript">
+
+		function check_all_fields(form_obj){
+			alert(form_obj.searchAttribute.value+"='"+form_obj.attributeValue.value+"'");
+			if( form_obj.attributeValue.value == ""){
+				alert("Search field should be nonempty");
+				return false;
+			}
+			return true;
+		}
+
+		</script> 
 	</head>
 
 	<body>
@@ -31,16 +44,67 @@
 			</div>
 		</div>
 
-		<div class="container">
+		<%
+		String searchAttribute = request.getParameter("searchAttribute");
+		if( searchAttribute == null ){
+		%>
+
+		<div class="container" style="padding-top: 50px;">
 			<div class="row">
-				<div class="col-sm-12 text-center">
-					
-				</div><!--col-sm-12-->
+				<div class="col-sm-4"></div>
+				<div class="col-sm-4 text-right">
+					<form name="register_user" method=get onsubmit="return check_all_fields(this)" action="new_poi.jsp">
+						<input type=hidden name="searchAttribute">
+						Enter POI name
+						<input type=text name="name"><br/>
+						Enter POI city
+						<input type=text name="city" placeholder="South Jordan"><br/>
+						Enter POI state as a 2-letter abreviation
+						<input type=text name="state" placeholder="UT"><br/>
+						Enter POI URL
+						<input type=text name="url" placeholder="www.somedomain.com"><br/>
+						Enter POI telephone with no spaces or characters
+						<input type=text name="telephone" placeholder="8015551234"><br/>
+						Enter 4 digit year established
+						<input type=text name="yearest" placeholder="2015"><br/>
+						Enter hours of operation, separated by a dash
+						<input type=text name="hours" placeholder="8-5, 9-6 etc."><br/>
+						Enter avg price of a transaction
+						<input type=text name="price" placeholder="100"><br/>
+						Enter single word POI category
+						<input type=text name="category" placeholder="Grocery, Service etc."><br/>
+						<input type=submit>
+					</form>
+				</div><!--col-sm-6-->
+				<div class="col-sm-4"></div>
 			</div><!--row-->
 		</div><!--container-->
 
-		<!--<a href="orders.sql">orders.sql</a><br>
-		<a href="orders.jsp">orders.jsp</a><br>-->
+		<%
+		} else {
+
+			String name = request.getParameter("name");
+			String city = request.getParameter("city");
+			String state = request.getParameter("state");
+			String url = request.getParameter("url");
+			String telephone = request.getParameter("telephone");
+			String yearest = request.getParameter("yearest");
+			String hours = request.getParameter("hours");
+			String price = request.getParameter("price");
+			String category = request.getParameter("category");
+			Connector con = new Connector();
+			POI poi = new POI();
+			
+			if(poi.newPOI(name, city, state, url, telephone, yearest, hours, price, category, con.stmt)) {
+				out.println("New POI added successfully");
+			}
+			else {
+				out.println("New POI NOT ADDED. Please try again");
+			}
+			connector.closeStatement();
+ 			connector.closeConnection();
+		}
+		%>
 
 	</body>
 </html>

@@ -20,6 +20,19 @@
 
 		<!-- Latest compiled and minified JavaScript -->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+		<script type="text/javascript">
+
+		function check_all_fields(form_obj){
+			alert(form_obj.searchAttribute.value+"='"+form_obj.attributeValue.value+"'");
+			if( form_obj.attributeValue.value == ""){
+				alert("Search field should be nonempty");
+				return false;
+			}
+			return true;
+		}
+
+		</script> 
 	</head>
 
 	<body>
@@ -49,22 +62,22 @@
 				<div class="col-sm-4"></div>
 				<div class="col-sm-4 text-right">
 					<form name="register_user" method=get onsubmit="return check_all_fields(this)" action="register.jsp">
-					<input type=hidden name="searchAttribute">
-					Enter desired login
-					<input type=text name="login" placeholder="jsmith123"><br/>
-					Enter First and Last name
-					<input type=text name="realName" placeholder="John Smith"><br/>
-					Enter desired password
-					<input type=password name="password1"><br/>
-					Verify your password
-					<input type=password name="password2"><br/>
-					Enter your city
-					<input type=text name="city" placeholder="South Jordan"><br/>
-					Enter your state as a 2-letter abreviation
-					<input type=text name="state" placeholder="UT"><br/>
-					Enter your telephone with no spaces or characters
-					<input type=text name="telephone" placeholder="8015551234"><br/>
-					<input type=submit>
+						<input type=hidden name="searchAttribute">
+						Enter desired login
+						<input type=text name="login" placeholder="jsmith123"><br/>
+						Enter First and Last name
+						<input type=text name="realName" placeholder="John Smith"><br/>
+						Enter desired password
+						<input type=password name="password1"><br/>
+						Verify your password
+						<input type=password name="password2"><br/>
+						Enter your city
+						<input type=text name="city" placeholder="South Jordan"><br/>
+						Enter your state as a 2-letter abreviation
+						<input type=text name="state" placeholder="UT"><br/>
+						Enter your telephone with no spaces or characters
+						<input type=text name="telephone" placeholder="8015551234"><br/>
+						<input type=submit>
 					</form>
 				</div><!--col-sm-6-->
 				<div class="col-sm-4"></div>
