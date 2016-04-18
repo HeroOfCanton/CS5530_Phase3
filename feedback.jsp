@@ -1,4 +1,7 @@
 <%@ page language="java" import="cs5530.*" %>
+<%@ page import="java.text.DateFormat" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 	<head>
@@ -69,6 +72,7 @@
 			String feedbackReview = request.getParameter("feedbackReview");
 			String feedbackChoice = request.getParameter("feedbackChoice");
 			String fbdate;
+			String userName = session.getAttribute("userName");
 
 			String pid = poi.getPid(poiName, con.stmt);
 			if(pid.equals("")) {

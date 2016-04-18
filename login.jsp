@@ -75,7 +75,8 @@
     			response.sendRedirect("admin_menu.jsp");
     		}
     		else {
-    			response.sendRedirect("user_menu.jsp?name=" + userName);
+    			session.setAttribute("userName", userName);
+    			response.sendRedirect("user_menu.jsp");
     		}
  		con.closeConnection();
 		}
