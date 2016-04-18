@@ -46,9 +46,9 @@
 						What is the real name of the first user?
 						<input type=text name="userOne"><br/>
 						What is the real name of the second user?
-						<input type=text name="userTwo" placeholder="South Jordan"><br/>
+						<input type=text name="userTwo"><br/>
 						Would you like to show 1 or 2 degrees of separation?
-						<input type=text name="degrees" placeholder="UT"><br/>
+						<input type=text name="degrees"><br/>
 						<input type=submit>
 					</form>
 				</div><!--col-sm-6-->
@@ -72,10 +72,10 @@
 				userList2 = user.separationOne(userTwo, con.stmt);
 				out.println("<div align='center'>Users with 1 degree of separation from "+userOne+" and "+userTwo);
 				for(String string : userList) {
-					out.println(string);
+					out.println("<p>"+string+"</p>");
 				}
 				for(String string : userList2) {
-					out.println(string);
+					out.println("<p>"+string+"</p>");
 				}
 				out.println("</div>");
 			}
@@ -83,7 +83,7 @@
 				userList = user.separationTwo(userOne, userTwo,  con.stmt);
 				out.println("<div align='center'>Users with 2 degrees of separation from "+userOne+ " and " +userTwo);
 				for(String string : userList) {
-					out.println(string);
+					out.println("<p>"+string+"</p>");
 				}
 				out.println("</div>");
 			}
