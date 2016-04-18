@@ -38,6 +38,7 @@
 		<%
 		String searchAttribute = request.getParameter("searchAttribute");
 		if( searchAttribute == null ){
+		   // out.println(session.getAttribute("userName").toString());
 		%>
 
 		<div class="container" style="padding-top: 50px;">
