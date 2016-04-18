@@ -1,6 +1,7 @@
 <%@ page language="java" import="cs5530.*" %>
 <%@ page import="java.text.DateFormat" %>
 <%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.util.Date" %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
@@ -43,7 +44,7 @@
 			<div class="row">
 				<div class="col-sm-4"></div>
 				<div class="col-sm-4 text-right">
-					<form name="register_user" method=get onsubmit="return check_all_fields(this)" action="separation.jsp">
+					<form name="register_user" method=get onsubmit="return check_all_fields(this)" action="feedback.jsp">
 						<input type=hidden name="searchAttribute">
 						Enter name of POI to leave feedback for:
 						<input type=text name="poiName"><br/>
@@ -72,7 +73,7 @@
 			String feedbackReview = request.getParameter("feedbackReview");
 			String feedbackChoice = request.getParameter("feedbackChoice");
 			String fbdate;
-			String userName = session.getAttribute("userName");
+			String userName = session.getAttribute("userName").toString();
 
 			String pid = poi.getPid(poiName, con.stmt);
 			if(pid.equals("")) {
