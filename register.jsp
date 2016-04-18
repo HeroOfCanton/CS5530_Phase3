@@ -102,11 +102,11 @@
 			else {
 				Register register = new Register();
 				if(register.registerUser(login, realName, password1, city, state, telephone, con.stmt)) {
-					out.println("Thank you for registering\n" +
+					out.println("<div align='center'>Thank you for registering</div>" +
 								"<p align='center'><a href='index.html'>Back to Main Menu</a></p>");
 				}
 				else {
-					out.println("Registration failed. You failed. You're a failure.\n" +
+					out.println("<div align='center'>Registration failed. You failed. You're a failure.<div>" +
 								"<p align='center'><a href='index.html'>Back to Main Menu</a></p>");
 				}
 			}
