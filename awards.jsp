@@ -1,4 +1,5 @@
 <%@ page language="java" import="cs5530.*" %>
+<%@ page import="java.util.ArrayList" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 	<head>
@@ -70,7 +71,8 @@
 			int count = 1;
 			String number;
 			String choice;
-			ArrayList<String[]> most = null;
+			ArrayList<String[]> most = new ArrayList<String[]>();
+			Connector con = new Connector();
 			BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 			Awards award = new Awards();
 			
