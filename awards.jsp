@@ -21,6 +21,18 @@
 
 		<!-- Latest compiled and minified JavaScript -->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+		<script type="text/javascript">
+
+			function check_all_fields(form_obj){
+					alert(form_obj.searchAttribute.value+"='"+form_obj.attributeValue.value+"'");
+							if( form_obj.attributeValue.value == ""){
+							    				     alert("Search field should be nonempty");
+											     		   	 	return false;
+															        }
+																  return true;
+																  	 }
+</script>
 	</head>
 
 	<body>
@@ -45,10 +57,10 @@
 						<input type=hidden name="searchAttribute">
 						How many records would you like to return?
 						<input type=text name="number"><br/>
-						Please choose the type of users to display, for awards:
-						1: Most trusted users
-						2: Most useful users
-						3: Return to previous menu
+						Please choose the type of users to display, for awards:</br>
+						1: Most trusted users</br>
+						2: Most useful users</br>
+						3: Return to previous menu</br>
 						<input type=text name="choice"><br/>
 						<input type=submit>
 					</form>
@@ -74,39 +86,39 @@
 		 	switch(c) {
 	 	 	case(1):
 	 	 		most = award.getTrusted(numOfRecords, con.stmt);
-		 	 	out.println("<div align='center'>Here is your list of trusted users:</div>\n");
+		 	 	out.println("<div align='center'>Here is your list of trusted users:");
 			 	// Walk the arraylist
 				for(int i = 0; i < most.size(); i++) {
 					// Get the data from the array
 					// [0] = pid name
 					// [1] = num of visits
 					String arr[] = most.get(i);
-					out.println("<p align='center'" + count + "- User Name: " +arr[0] +" || Total Trust Score: " +arr[1] +"<p/>\n");
+					out.println("<p>" +count + "- User Name: " +arr[0] +" || Total Trust Score: " +arr[1] +"</p>");
 					// New feedback, let's increment count
 					count++;
 				}
-				out.println("\n");
+				out.println("</div>");
 	 	 		break;
 	 	 	case(2):
 	 	 		most = award.getUseful(numOfRecords, con.stmt);
-		 	 	out.println("<div align='center'>Here is your list of useful users:</div>\n");
+		 	 	out.println("<div align='center'>Here is your list of useful users:");
 			 	// Walk the arraylist
 				for(int i = 0; i < most.size(); i++) {
 					// Get the data from the array
 					// [0] = pid name
 					// [1] = num of visits
 					String arr[] = most.get(i);
-					out.println("<p align='center'" + count + "- User Name: " +arr[0] +" || Avg Useful Score: " +arr[1] +"<p/>\n");
+					out.println("<p>" + count + "- User Name: " +arr[0] +" || Avg Useful Score: " +arr[1] +"<p/>");
 					// New feedback, let's increment count
 					count++;
 				}
-				out.println("\n");
+				out.println("</div>");
 	 	 		break;
 		 	case(3):
 		 	default:
 		 		break;
 		 	}
-		 	out.println("<p align='center'><a href='admin_menu.jsp'>Back to Admin Menu</a></p>")
+		 	out.println("<p align='center'><a href='admin_menu.jsp'>Back to Admin Menu</a></p>");
 		 	con.closeConnection();
 		}
 		%>
