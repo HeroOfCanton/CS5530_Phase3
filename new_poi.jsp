@@ -96,7 +96,7 @@
 			POI poi = new POI();
 			
 			if(poi.newPOI(name, city, state, url, telephone, yearest, hours, price, category, con.stmt)) {
-				out.println("<div align="center">New POI added successfully</div>");
+				out.println("<div align='center'>New POI added successfully</div>");
 			}
 			else {
 				out.println("New POI NOT ADDED. Please try again");
