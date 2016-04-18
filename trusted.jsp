@@ -31,6 +31,12 @@
 			</div>
 		</div>
 
+		<%
+		String searchAttribute = request.getParameter("searchAttribute");
+		if( searchAttribute == null ){
+		   // out.println(session.getAttribute("userName").toString());
+		%>
+		
 		<div class="container" style="padding-top: 50px;">
 			<div class="row">
 				<div class="col-sm-4"></div>
