@@ -96,10 +96,12 @@
 			POI poi = new POI();
 			
 			if(poi.newPOI(name, city, state, url, telephone, yearest, hours, price, category, con.stmt)) {
-				out.println("<div align='center'>New POI added successfully</div>");
+				out.println("<div align='center'>New POI added successfully</div>\n" +
+							"<p align='center'><a href='admin_menu.jsp'>Back to Admin Menu</a></p>");
 			}
 			else {
-				out.println("New POI NOT ADDED. Please try again");
+				out.println("New POI NOT ADDED. Please try again\n" +
+							"<p align='center'><a href='admin_menu.jsp'>Back to Admin Menu</a></p>");
 			}
 			con.closeConnection();
 		}

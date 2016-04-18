@@ -65,17 +65,13 @@
 			Login login = new Login();
 			String type = login.verifyLogin(userName, userPassword, con.stmt);
 
-			//if(userType.equals("false")) { 
-			//%>
-    		//	Passwords do not match, please try again
-    		//<%	
-    		//}
-    		//else if(userType.equals("mismatch")) { %>
-
-    		//	<p>Login does not exist. Please register as a new user</p>
-			//<%    	
-    		//}
-    		if(type.equals("admin")) {
+			if(type.equals("false")) { 
+				out.println("Passwords do not match, please try again");
+    		}
+    		else if(type.equals("mismatch")) {
+    			out.println("Login does not exist. Please register as a new user");
+    		}
+    		else if(type.equals("admin")) {
     			response.sendRedirect("admin_menu.jsp");
     		}
     		else {
