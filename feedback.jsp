@@ -31,16 +31,86 @@
 			</div>
 		</div>
 
-		<div class="container">
+		<%
+		String searchAttribute = request.getParameter("searchAttribute");
+		if( searchAttribute == null ){
+		%>
+
+		<div class="container" style="padding-top: 50px;">
 			<div class="row">
-				<div class="col-sm-12 text-center">
-					
-				</div><!--col-sm-12-->
+				<div class="col-sm-4"></div>
+				<div class="col-sm-4 text-right">
+					<form name="register_user" method=get onsubmit="return check_all_fields(this)" action="separation.jsp">
+						<input type=hidden name="searchAttribute">
+						Enter name of POI to leave feedback for:
+						<input type=text name="poiName"><br/>
+						Enter a score for POI, between 0-10:
+						<input type=text name="feedbackScore"><br/>
+						If you'd like to leave a short review, enter Y
+						<input type=text name="feedbackChoice"><br/>
+						Please enter a short textual review:
+						<input type=text name="feedbackReview"><br/>
+						<input type=submit>
+					</form>
+					<a href="index.html"><button class="btn"><span>Return</span></button></a>
+				</div><!--col-sm-6-->
+				<div class="col-sm-4"></div>
 			</div><!--row-->
 		</div><!--container-->
 
-		<!--<a href="orders.sql">orders.sql</a><br>
-		<a href="orders.jsp">orders.jsp</a><br>-->
+		<%
+		} else {
+
+			Feedback feedback = new Feedback();
+			POI poi = new POI();
+			Connector con = new Connector();
+			String poiName = request.getParameter("poiName");
+			String feedbackScore = request.getParameter("feedbackScore");
+			String feedbackReview = request.getParameter("feedbackReview");
+			String feedbackChoice = request.getParameter("feedbackChoice");
+			String fbdate;
+
+			String pid = poi.getPid(poiName, con.stmt);
+			if(pid.equals("")) {
+				out.println("<div align='center'>That POI does not exist</div>");
+				return;
+			}
+
+			if(feedback.canGiveFeedback(pid, userName, con.stmt)) {
+				DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+				Date date = new Date();
+				fbdate = dateFormat.format(date);
+
+				if(feedbackChoice.equals("Y") || feedbackChoice.equals("y")) {
+					out.println("<div align='center'>");
+					if(feedback.addFeedback(pid, userName, feedbackReview, feedbackScore, fbdate, con.stmt)) {
+						out.println("Your feedback has been saved");
+					}
+					else {
+						out.println("Your feedback has NOT been saved. Try again");
+						out.println("<p><a href='user_menu.jsp'>Back to User Menu</a></p>");
+					}
+					out.println("</div>");
+				}
+				else {
+					out.println("<div align='center'>");
+					if(feedback.addFeedback(pid, userName, feedbackReview, feedbackScore, fbdate, con.stmt)) {
+						out.println("Your feedback has been saved");
+					}
+					else {
+						out.println("Your feedback has NOT been saved. Try again");
+						out.println("<p><a href='user_menu.jsp'>Back to User Menu</a></p>");
+					}
+					out.println("</div>");
+				}
+			}
+			else {
+				System.out.println("You've already given feedback for that POI. No changes allowed\n");
+			}
+			out.println("<p align='center'><a href='user_menu.jsp'>Back to User Menu</a></p>");
+			con.closeConnection();
+		}
+		%>
 
 	</body>
 </html>
