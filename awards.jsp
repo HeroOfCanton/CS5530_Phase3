@@ -43,20 +43,13 @@
 				<div class="col-sm-4 text-right">
 					<form name="register_user" method=get onsubmit="return check_all_fields(this)" action="awards.jsp">
 						<input type=hidden name="searchAttribute">
-						Enter desired login
-						<input type=text name="login" placeholder="jsmith123"><br/>
-						Enter First and Last name
-						<input type=text name="realName" placeholder="John Smith"><br/>
-						Enter desired password
-						<input type=password name="password1"><br/>
-						Verify your password
-						<input type=password name="password2"><br/>
-						Enter your city
-						<input type=text name="city" placeholder="South Jordan"><br/>
-						Enter your state as a 2-letter abreviation
-						<input type=text name="state" placeholder="UT"><br/>
-						Enter your telephone with no spaces or characters
-						<input type=text name="telephone" placeholder="8015551234"><br/>
+						How many records would you like to return?
+						<input type=text name="number"><br/>
+						Please choose the type of users to display, for awards:
+						1: Most trusted users
+						2: Most useful users
+						3: Return to previous menu
+						<input type=text name="choice"><br/>
 						<input type=submit>
 					</form>
 				</div><!--col-sm-6-->
@@ -69,41 +62,26 @@
 
 			int c = 0;
 			int count = 1;
-			String number;
-			String choice;
-			ArrayList<String[]> most = new ArrayList<String[]>();
+			String number = request.getParameter("number");;
+			String choice = request.getParameter("choice");
+			ArrayList<String[]> most = null;
 			Connector con = new Connector();
-			BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 			Awards award = new Awards();
 			
-			System.out.println("How many records would you like to return?");
-		 	while ((number = in.readLine()) == null && number.length() == 0);
 		 	int numOfRecords = Integer.parseInt(number);
-			
-			System.out.println("Please choose the type of users to display, for awards:");
-			System.out.println("1: Most trusted users");
-			System.out.println("2: Most useful users");
-			System.out.println("3: Return to previous menu");
+		 	c = Integer.parseInt(choice);
 
-			while ((choice = in.readLine()) == null && choice.length() == 0);
-		 	try {
-		 		c = Integer.parseInt(choice);
-		 	}
-		 	catch (Exception e) {
-		 		System.out.println(e.getMessage());
-		 	}
-		 	
 		 	switch(c) {
 	 	 	case(1):
 	 	 		most = award.getTrusted(numOfRecords, con.stmt);
-		 	 	out.println("Here is your list of trusted users:");
+		 	 	out.println("<div align='center'>Here is your list of trusted users:</div>\n");
 			 	// Walk the arraylist
 				for(int i = 0; i < most.size(); i++) {
 					// Get the data from the array
 					// [0] = pid name
 					// [1] = num of visits
 					String arr[] = most.get(i);
-					out.println(count + "- User Name: " +arr[0] +" || Total Trust Score: " +arr[1]);
+					out.println("<p align='center'" + count + "- User Name: " +arr[0] +" || Total Trust Score: " +arr[1] +"<p/>\n");
 					// New feedback, let's increment count
 					count++;
 				}
@@ -111,14 +89,14 @@
 	 	 		break;
 	 	 	case(2):
 	 	 		most = award.getUseful(numOfRecords, con.stmt);
-		 	 	out.println("Here is your list of useful users:");
+		 	 	out.println("<div align='center'>Here is your list of useful users:</div>\n");
 			 	// Walk the arraylist
 				for(int i = 0; i < most.size(); i++) {
 					// Get the data from the array
 					// [0] = pid name
 					// [1] = num of visits
 					String arr[] = most.get(i);
-					out.println(count + "- User Name: " +arr[0] +" || Avg Useful Score: " +arr[1]);
+					out.println("<p align='center'" + count + "- User Name: " +arr[0] +" || Avg Useful Score: " +arr[1] +"<p/>\n");
 					// New feedback, let's increment count
 					count++;
 				}
@@ -128,6 +106,7 @@
 		 	default:
 		 		break;
 		 	}
+		 	out.println("<p align='center'><a href='admin_menu.jsp'>Back to Admin Menu</a></p>")
 		 	con.closeConnection();
 		}
 		%>
