@@ -1,4 +1,5 @@
 <%@ page language="java" import="cs5530.*" %>
+<%@ page import="java.util.ArrayList" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 	<head>
@@ -31,16 +32,69 @@
 			</div>
 		</div>
 
-		<div class="container">
+		<%
+		String searchAttribute = request.getParameter("searchAttribute");
+		if( searchAttribute == null ){
+		%>
+
+		<div class="container" style="padding-top: 50px;">
 			<div class="row">
-				<div class="col-sm-12 text-center">
-					
-				</div><!--col-sm-12-->
+				<div class="col-sm-4"></div>
+				<div class="col-sm-4 text-right">
+					<form name="register_user" method=get onsubmit="return check_all_fields(this)" action="separation.jsp">
+						<input type=hidden name="searchAttribute">
+						What is the real name of the first user?
+						<input type=text name="userOne"><br/>
+						What is the real name of the second user?
+						<input type=text name="userTwo" placeholder="South Jordan"><br/>
+						Would you like to show 1 or 2 degrees of separation?
+						<input type=text name="degrees" placeholder="UT"><br/>
+						<input type=submit>
+					</form>
+				</div><!--col-sm-6-->
+				<div class="col-sm-4"></div>
 			</div><!--row-->
 		</div><!--container-->
 
-		<!--<a href="orders.sql">orders.sql</a><br>
-		<a href="orders.jsp">orders.jsp</a><br>-->
+		<%
+		} else {
+
+			String degrees = request.getParameter("degrees");
+			String userOne = request.getParameter("userOne");
+			String userTwo = request.getParameter("userTwo");
+			ArrayList<String> userList = new ArrayList<String> ();
+			Connector con = new Connector();
+			User user = new User();
+
+			if(degrees.equals("1")) {
+				ArrayList<String> userList2 = new ArrayList<String> ();
+				userList = user.separationOne(userOne, con.stmt);
+				userList2 = user.separationOne(userTwo, con.stmt);
+				out.println("<div align='center'>Users with 1 degree of separation from "+userOne+" and "+userTwo);
+				for(String string : userList) {
+					out.println(string);
+				}
+				for(String string : userList2) {
+					out.println(string);
+				}
+				out.println("</div>");
+			}
+			else if(degrees.equals("2")) {
+				userList = user.separationTwo(userOne, userTwo,  con.stmt);
+				out.println("<div align='center'>Users with 2 degrees of separation from "+userOne+ " and " +userTwo);
+				for(String string : userList) {
+					out.println(string);
+				}
+				out.println("</div>");
+			}
+			else {
+				out.println("No one likes a comedian");
+				System.exit(0);
+			}
+			out.println("<p align='center'><a href='admin_menu.jsp'>Back to Admin Menu</a></p>");
+			con.closeConnection();
+		}
+		%>
 
 	</body>
 </html>

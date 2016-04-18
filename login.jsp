@@ -66,10 +66,10 @@
 			String type = login.verifyLogin(userName, userPassword, con.stmt);
 
 			if(type.equals("false")) { 
-				out.println("Passwords do not match, please try again");
+				out.println("<div align='center'>Passwords do not match, please try again</div>");
     		}
     		else if(type.equals("mismatch")) {
-    			out.println("Login does not exist. Please register as a new user");
+    			out.println("<div align='center'>Login does not exist. Please register as a new user</div>");
     		}
     		else if(type.equals("admin")) {
     			response.sendRedirect("admin_menu.jsp");

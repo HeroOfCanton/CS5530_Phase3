@@ -74,7 +74,7 @@
 
 			int c = 0;
 			int count = 1;
-			String number = request.getParameter("number");;
+			String number = request.getParameter("number");
 			String choice = request.getParameter("choice");
 			ArrayList<String[]> most = null;
 			Connector con = new Connector();
