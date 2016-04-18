@@ -40,7 +40,7 @@
 			<div class="row">
 				<div class="col-sm-4"></div>
 				<div class="col-sm-4 text-right">
-					<form name="register_user" method=get onsubmit="return check_all_fields(this)" action="awards.jsp">
+					<form name="register_user" method=get onsubmit="return check_all_fields(this)" action="modify_poi.jsp">
 						<input type=hidden name="searchAttribute">
 						Enter POI Name to modify:
 						<input type=text name="poiname"><br/>
@@ -66,7 +66,8 @@
 
 		<%
 		} else {
-
+		       
+			Connector con = new Connector();
 			String updateField = null; 
 			String name = request.getParameter("poiname");
 			String choice = request.getParameter("choice");
@@ -120,7 +121,6 @@
 				}
 			 	
 			}
-			out.println("<p align='center'><a href='admin_menu.jsp'>Back to Admin Menu</a></p>");
 			con.closeConnection();
 		}
 		%>
