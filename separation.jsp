@@ -89,8 +89,8 @@
 				out.println("</div>");
 			}
 			else {
-				out.println("No one likes a comedian");
-				System.exit(0);
+				out.println("<div align='center'>No one likes a comedian" +
+							"<p><a href='admin_menu.jsp'>Back to Admin Menu</a></p></div>");
 			}
 			out.println("<p align='center'><a href='admin_menu.jsp'>Back to Admin Menu</a></p>");
 			con.closeConnection();
