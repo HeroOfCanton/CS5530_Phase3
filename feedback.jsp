@@ -111,7 +111,7 @@
 				}
 			}
 			else {
-				System.out.println("You've already given feedback for that POI. No changes allowed\n");
+				out.println("You've already given feedback for that POI. No changes allowed\n");
 			}
 			out.println("<p align='center'><a href='user_menu.jsp'>Back to User Menu</a></p>");
 			con.closeConnection();
