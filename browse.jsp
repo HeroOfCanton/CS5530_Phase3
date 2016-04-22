@@ -32,99 +32,134 @@
 				<h3>Browse POI</h3>
 			</div>
 		</div>
-
+		
 		<%
 		String searchAttribute = request.getParameter("searchAttribute");
 		if( searchAttribute == null ){
-		   // out.println(session.getAttribute("userName").toString());
 		%>
 		
 		<div class="container" style="padding-top: 50px;">
 			<div class="row">
-				<div class="col-sm-4"></div>
-				<div class="col-sm-4 text-right">
+				<div class="col-sm-12">
+					<p align="center">Choose how you want to browse the POI's</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-4 text-left">
 					<form name="register_user" method=get onsubmit="return check_all_fields(this)" action="trusted.jsp">
 						<input type=hidden name="searchAttribute">
-						Choose how you want the results sorted:<br/>
-						1. By price<br/>
-						2. By avg feedbacks<br/>
-						<input type=text name="choice"><br/>
-						Please choose how to browse the POIs:
-						1. POI by City / State
-						2. POI by Keywords
-						3. POI by Category
-						4. Return to previous menu
-						<input type=text name="choice" placeholder="trusted / untrusted"><br/>
+							<p style="color: red; border-style: double;">Search by City / State</p>
+							Enter EITHER City or State
+							Enter the name of the City:
+								<input type=text name="adrvar_city" placeholder="South Jordan"><br/>
+							Enter 2 letter name of the State:
+								<input type=text name="adrvar_state" placeholder="UT"><br/>
+							Choose how you want the results sorted:<br/>
+							1. By price<br/>
+							2. By avg feedbacks<br/>
+								<input type=text name="sorted_CS"><br/>
+						<input type=submit>
+					</form>
+				</div><!--col-sm-4-->
+				<div class="col-sm-4 text-center">
+					<form name="register_user" method=get onsubmit="return check_all_fields(this)" action="trusted.jsp">
+						<input type=hidden name="searchAttribute">
+							<p style="color: blue; border-style: double;">Search by Keywords</p>
+							Enter the keyword to search by:
+								<input type=text name="adrvar_key" placeholder=""><br/>
+							Choose how you want the results sorted:<br/>
+							1. By price<br/>
+							2. By avg feedbacks<br/>
+								<input type=text name="sorted_keys"><br/>
 						<input type=submit>
 					</form>
 					<a href="index.html"><button class="btn"><span>Return</span></button></a>
-				</div><!--col-sm-6-->
-				<div class="col-sm-4"></div>
+				</div><!--col-sm-4-->
+				<div class="col-sm-4 text-right">
+					<form name="register_user" method=get onsubmit="return check_all_fields(this)" action="trusted.jsp">
+						<input type=hidden name="searchAttribute">
+							<p style="color: green; border-style: double;">Search by Categories</p>
+							Enter category to search by:
+								<input type=text name="adrvar_cat" placeholder=""><br/>
+							Choose how you want the results sorted:<br/>
+							1. By price<br/>
+							2. By avg feedbacks<br/>
+								<input type=text name="sorted_cats"><br/>
+						<input type=submit>
+					</form>
+				</div><!--col-sm-4-->
 			</div><!--row-->
 		</div><!--container-->
-
+		
 		<%
 		} else {
 
 			int c = 0;
 			String sort = null;
-			String choice;
+			String sorted_CS = request.getParameter("sorted_CS");
+			String sorted_keys = request.getParameter("sorted_keys");
+			String sorted_cats = request.getParameter("sorted_cats");
+			String choice = "";
 			ArrayList<String> poiarr = null;
 			String userName = session.getAttribute("userName").toString();
 			Connector con = new Connector();
 			POI poi = new POI();
+
+			// sort by city / state
+			if(sorted_CS.equals("1")) {
+				sort = "price";
+				choice = 1;
+			}
+			else if(sorted_CS.equals("2")) {
+				sort = "feedback";
+				choice = 1;
+		 	}
 			
-		 	if(choice.equals("1")) {
-		 		sort = "price";
+			// sort by keywords
+		 	if(sorted_keys.equals("1")) {
+				sort = "price";
+				choice = 2;
+			}
+			else if(sorted_keys.equals("2")) {
+				sort = "feedback";
+				choice = 2;
 		 	}
-		 	else if(choice.equals("2")) {
-		 		sort = "feedback";
-		 	}
-		 	else {
-		 		out.println("<div align='center'>You didn't enter the right choice" +
-		 					"<p><a href='user_menu.jsp'>Back to User Menu</a></p></div>");
+
+		 	// sort by categories
+		 	if(sorted_cats.equals("1")) {
+				sort = "price";
+				choice = 3;
+			}
+			else if(sorted_cats.equals("2")) {
+				sort = "feedback";
+				choice = 3;
 		 	}
 
 	   	 	
 	   	 	browse: while(true) {
-			 	c = Integer.parseInt(choice);
+			 	c = choice;
 			 		
 			 	switch(c) {
 			 	case(1):
-			 		String adrvar = null;
-			 		String adrchoice = null;
 
-			 		System.out.println("By City or State?:");
-			 		while ((adrchoice = in.readLine()) == null && adrchoice.length() == 0);
-			 		if(adrchoice.equals("city") || adrchoice.equals("City")) {
-			 			System.out.println("Enter the name of the City:");
-			 			while ((adrvar = in.readLine()) == null && adrvar.length() == 0);
+			 		if(request.getParameter("adrvar_city")) {
+			 			String adrvar = request.getParameter("adrvar_city");
+			 			String adrchoice = "city";
 			 		}
-			 		else if(adrchoice.equals("state") || adrchoice.equals("State")) {
-			 			System.out.println("Enter the two letter abreviation for the State:");
-			 			while ((adrvar = in.readLine()) == null && adrvar.length() == 0);
+			 		else if (request.getParameter("adrvar_state")){
+			 			String adrvar = request.getParameter("adrvar_city");
+			 			String adrchoice = "state";
 			 		}
-			 		else {
-			 			System.out.println("No one likes a funny guy");
-			 			System.exit(0);
-			 		}
+
 			 		poiarr = poi.getAdr(adrvar, adrchoice, sort, con.stmt);
 			 		break;
 			 	case(2):
-			 		String keyvar = null;
-			 		System.out.println("Enter the keyword to search by:");
-			 		while ((keyvar = in.readLine()) == null && keyvar.length() == 0);
+			 		String keyvar = request.getParameter("adrvar_key");
+			 		
 			 		poiarr = poi.getKeywords(keyvar, sort, con.stmt);
 			 		break;
 			 	case(3):
-			 		ArrayList<String>categories = poi.getCategories(con.stmt);
-			 		String catvar;
-			 		System.out.println("Here are a list of categories:");
-			 		for(String string : categories) {
-			 			System.out.println(string);
-			 		}
-			 		System.out.println("Which category would you like to search by?");
-			 		while ((catvar = in.readLine()) == null && catvar.length() == 0);
+			 		String catvar = request.getParameter("adrvar_cat");
 			 		poiarr = poi.getCat(catvar, sort, con.stmt);
 			 		break;
 			 	case(4):
@@ -132,11 +167,10 @@
 			 		break browse;
 			 	}
 			 	
-			 	System.out.println(" \nHere are the POI's you requested:");
+			 	out.println("<p align='center'>Here are the POI's you requested:</p>");
 			 	for(String string : poiarr) {
-			 		System.out.println(string);
+			 		out.println("<p align='center'>" + string + "</p>");
 			 	}
-			 	System.out.println("\n");
 			 	break;
 	   	 	}
 			out.println("<p align='center'><a href='user_menu.jsp'>Back to User Menu</a></p>");
