@@ -46,9 +46,9 @@
 			</div>
 			<div class="row">
 				<div class="col-sm-4 text-left">
-					<form name="register_user" method=get onsubmit="return check_all_fields(this)" action="trusted.jsp">
+					<form name="register_user" method=get onsubmit="return check_all_fields(this)" action="browse.jsp">
 						<input type=hidden name="searchAttribute">
-							<p style="color: red; border-style: double;">Search by City / State</p>
+							<p align="center" style="color: red; border-style: double;">Search by City / State</p>
 							Enter EITHER City or State
 							Enter the name of the City:
 								<input type=text name="adrvar_city" placeholder="South Jordan"><br/>
@@ -62,7 +62,7 @@
 					</form>
 				</div><!--col-sm-4-->
 				<div class="col-sm-4 text-center">
-					<form name="register_user" method=get onsubmit="return check_all_fields(this)" action="trusted.jsp">
+					<form name="register_user" method=get onsubmit="return check_all_fields(this)" action="browse.jsp">
 						<input type=hidden name="searchAttribute">
 							<p style="color: blue; border-style: double;">Search by Keywords</p>
 							Enter the keyword to search by:
@@ -76,9 +76,9 @@
 					<a href="index.html"><button class="btn"><span>Return</span></button></a>
 				</div><!--col-sm-4-->
 				<div class="col-sm-4 text-right">
-					<form name="register_user" method=get onsubmit="return check_all_fields(this)" action="trusted.jsp">
+					<form name="register_user" method=get onsubmit="return check_all_fields(this)" action="browse.jsp">
 						<input type=hidden name="searchAttribute">
-							<p style="color: green; border-style: double;">Search by Categories</p>
+							<p align="center" style="color: green; border-style: double;">Search by Categories</p>
 							Enter category to search by:
 								<input type=text name="adrvar_cat" placeholder=""><br/>
 							Choose how you want the results sorted:<br/>
@@ -99,7 +99,7 @@
 			String sorted_CS = request.getParameter("sorted_CS");
 			String sorted_keys = request.getParameter("sorted_keys");
 			String sorted_cats = request.getParameter("sorted_cats");
-			String choice = "";
+			int choice = 0;
 			ArrayList<String> poiarr = null;
 			String userName = session.getAttribute("userName").toString();
 			Connector con = new Connector();
@@ -141,14 +141,15 @@
 			 		
 			 	switch(c) {
 			 	case(1):
-
-			 		if(request.getParameter("adrvar_city")) {
-			 			String adrvar = request.getParameter("adrvar_city");
-			 			String adrchoice = "city";
+					String adrchoice = "";
+					String adrvar = "";
+			 		if(request.getParameter("adrvar_city") != null) {
+			 			adrvar = request.getParameter("adrvar_city");
+			 			adrchoice = "city";
 			 		}
-			 		else if (request.getParameter("adrvar_state")){
-			 			String adrvar = request.getParameter("adrvar_city");
-			 			String adrchoice = "state";
+			 		else if (request.getParameter("adrvar_state") != null){
+			 			adrvar = request.getParameter("adrvar_city");
+			 			adrchoice = "state";
 			 		}
 
 			 		poiarr = poi.getAdr(adrvar, adrchoice, sort, con.stmt);
