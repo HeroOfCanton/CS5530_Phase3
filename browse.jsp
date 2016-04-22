@@ -106,31 +106,31 @@
 			POI poi = new POI();
 
 			// sort by city / state
-			if(sorted_CS.equals("1")) {
+			if(sorted_CS != null && sorted_CS.equals("1")) {
 				sort = "price";
 				choice = 1;
 			}
-			else if(sorted_CS.equals("2")) {
+			else if(sorted_CS != null && sorted_CS.equals("2")) {
 				sort = "feedback";
 				choice = 1;
 		 	}
 			
 			// sort by keywords
-		 	if(sorted_keys.equals("1")) {
+		 	if(sorted_keys != null && sorted_keys.equals("1")) {
 				sort = "price";
 				choice = 2;
 			}
-			else if(sorted_keys.equals("2")) {
+			else if(sorted_keys != null && sorted_keys.equals("2")) {
 				sort = "feedback";
 				choice = 2;
 		 	}
 
 		 	// sort by categories
-		 	if(sorted_cats.equals("1")) {
+		 	if(sorted_cats != null && sorted_cats.equals("1")) {
 				sort = "price";
 				choice = 3;
 			}
-			else if(sorted_cats.equals("2")) {
+			else if(sorted_cats != null && sorted_cats.equals("2")) {
 				sort = "feedback";
 				choice = 3;
 		 	}
