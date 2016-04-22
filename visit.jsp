@@ -44,7 +44,7 @@
 			<div class="row">
 				<div class="col-sm-4"></div>
 				<div class="col-sm-4 text-right">
-					<form name="register_user" method=get onsubmit="return check_all_fields(this)" action="favorites.jsp">
+					<form name="register_user" method=get onsubmit="return check_all_fields(this)" action="visit.jsp">
 						<input type=hidden name="searchAttribute">
 						Enter the name of the POI to record a visit:
 							<input type=text name="poiName"><br/>
@@ -83,6 +83,7 @@
 			String pid = poi.getPid(poiName, con.stmt);
 			if(pid.equals("")) {
 				out.println("<p align='center'>That POI does not exist</p>");
+				out.println("<p align='center'><a href='user_menu.jsp'>Back to User Menu</a></p>");
 				return;
 			}
 			
