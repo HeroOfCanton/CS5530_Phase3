@@ -1,4 +1,8 @@
 <%@ page language="java" import="cs5530.*" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.text.DateFormat" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.util.Date" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 	<head>
@@ -31,16 +35,86 @@
 			</div>
 		</div>
 
-		<div class="container">
+		<%
+		String searchAttribute = request.getParameter("searchAttribute");
+		if( searchAttribute == null ) {
+		%>
+
+		<div class="container" style="padding-top: 50px;">
 			<div class="row">
-				<div class="col-sm-12 text-center">
-					
-				</div><!--col-sm-12-->
+				<div class="col-sm-4"></div>
+				<div class="col-sm-4 text-right">
+					<form name="register_user" method=get onsubmit="return check_all_fields(this)" action="favorites.jsp">
+						<input type=hidden name="searchAttribute">
+						Enter the name of the POI to record a visit:
+							<input type=text name="poiName"><br/>
+						What was the total amount spent in this visit?
+							<input type=text name="cost"><br/>
+						How many people were in the party?
+							<input type=text name="numofheads"><br/>
+						If you visited today, type Y for yes
+							<input type=text name="visitToday"><br/>
+						If you didn't visit today, enter date here as mm/dd/yyyy
+							<input type=text name="visitdate"><br/>
+						Please check information before submitting.<br/> 
+						Change if necessary.<br/> 
+						<input type=submit>
+					</form>
+					<a href="index.html"><button class="btn"><span>Return</span></button></a>
+				</div><!--col-sm-6-->
+				<div class="col-sm-4"></div>
 			</div><!--row-->
 		</div><!--container-->
 
-		<!--<a href="orders.sql">orders.sql</a><br>
-		<a href="orders.jsp">orders.jsp</a><br>-->
+		<%
+		} else {
+
+			Visit visit = new Visit();
+			POI poi = new POI();
+			String poiName = request.getParameter("poiName");
+			String cost = request.getParameter("cost");
+			String numofheads = request.getParameter("numofheads");
+			String visitToday = request.getParameter("visitToday");
+			String visitdate = request.getParameter("visitdate");
+			Connector con = new Connector();
+			String userName = session.getAttribute("userName").toString();
+			ArrayList<String []> suggestions = new ArrayList<String []>();
+			
+			String pid = poi.getPid(poiName, con.stmt);
+			if(pid.equals("")) {
+				out.println("<p align='center'>That POI does not exist</p>");
+				return;
+			}
+			
+			if(visitToday.equals("Y") || visitToday.equals("y")) {
+				DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+				Date date = new Date();
+				visitdate = dateFormat.format(date);
+			}
+			
+			if(visit.addtoDB(userName, pid, cost, numofheads, visitdate, con.stmt)) {
+				out.println("<p align='center'>Your visit has been recorded</p>");
+				out.println("<p align='center'>Here are some other Points of Interest you might like:</p>");
+				suggestions = visit.getVisitSuggestions(pid, con.stmt);
+				// Count should start at 1, and only increment when they get a new suggestion
+				// which should correspond to a new array in this arraylist
+				int count = 1;
+				
+				// Walk the arraylist
+				for(int i = 0; i < suggestions.size(); i++) {
+					String arr[] = suggestions.get(i);
+					out.println("<p align='center'>" + count + "- POI Name: " +arr[0] +" || Number of Times Visited: " +arr[1] + "</p>");
+					// New suggestion, let's increment count
+					count++;
+				}
+			}
+			else {
+				out.println("<p align='center'>Your visit has not been recorded. Try again.</p>");
+			}
+			out.println("<p align='center'><a href='user_menu.jsp'>Back to User Menu</a></p>");
+			con.closeConnection();
+		}
+		%>
 
 	</body>
 </html>
