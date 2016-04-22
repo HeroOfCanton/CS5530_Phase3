@@ -101,7 +101,6 @@
 			String sorted_cats = request.getParameter("sorted_cats");
 			int choice = 0;
 			ArrayList<String> poiarr = null;
-			String userName = session.getAttribute("userName").toString();
 			Connector con = new Connector();
 			POI poi = new POI();
 
