@@ -1,4 +1,6 @@
 <%@ page language="java" import="cs5530.*" %>
+<%@ page import="java.util.ArrayList" %>
+
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 	<head>
@@ -31,16 +33,93 @@
 			</div>
 		</div>
 
-		<div class="container">
+		<%
+		String searchAttribute = request.getParameter("searchAttribute");
+		if( searchAttribute == null ) {
+		%>
+
+		<div class="container" style="padding-top: 50px;">
 			<div class="row">
-				<div class="col-sm-12 text-center">
-					
-				</div><!--col-sm-12-->
+				<div class="col-sm-4"></div>
+				<div class="col-sm-4 text-right">
+					<form name="register_user" method=get onsubmit="return check_all_fields(this)" action="statistics.jsp">
+						<input type=hidden name="searchAttribute">
+						Enter number of records to return?
+							<input type=text name="limit"><br/>
+						Enter number of category to view:
+						1: Most popular POI's
+						2: Most expensive POI's
+						3: Highly rated POI's
+						4: Return to previous menu
+							<input type=text name="choice"><br/>
+						<input type=submit>
+					</form>
+					<a href="index.html"><button class="btn"><span>Return</span></button></a>
+				</div><!--col-sm-6-->
+				<div class="col-sm-4"></div>
 			</div><!--row-->
 		</div><!--container-->
 
-		<!--<a href="orders.sql">orders.sql</a><br>
-		<a href="orders.jsp">orders.jsp</a><br>-->
+		<%
+		} else {
+
+			int c = 0;
+			int count = 1;
+			String limit = request.getParameter("limit");
+			String choice = request.getParameter("choice");
+			ArrayList<String []> results = new ArrayList<String []> ();
+			Connector con = new Connector();
+			POI poi = new POI();
+
+		 	try {
+		 		c = Integer.parseInt(choice);
+		 	}
+		 	catch (Exception e) {
+		 		out.println(e.getMessage());
+		 	}
+		 	
+		 	switch(c) {
+		 	 	case(1):
+		 	 		results = poi.getPopular(limit, con.stmt);
+			 	 	out.println("<div align='center'>Here are the most popular POIs, by category:</div>");
+				 	// Walk the arraylist
+					for(int i = 0; i < results.size(); i++) {
+						String[] arr = results.get(i);
+						out.println("<div align='center'>" + count + "- POI Name: " +arr[0] +" || Category: " +arr[1] + " || Total Visits: " + arr[2] + "</div");
+						// New feedback, let's increment count
+						count++;
+					}
+		 	 		break;
+		 	 	case(2):
+		 	 		results = poi.getExpensive(limit, con.stmt);
+			 	 	out.println("<div align='center'>Here are the most expensive POIs, by category:</div>");
+				 	// Walk the arraylist
+					for(int i = 0; i < results.size(); i++) {
+						String[] arr = results.get(i);
+						out.println("<div align='center'>" + count + "- POI Name: " +arr[0] +" || Category: " +arr[1] + " || Avg. Price: $" + arr[2] + "</div>");
+						// New feedback, let's increment count
+						count++;
+					}
+		 	 		break;
+		 	 	case(3):
+		 	 		results = poi.getRated(limit, con.stmt);
+			 	 	out.println("<div align='center'>Here are the highest rated POIs, by category:</div>");
+				 	// Walk the arraylist
+					for(int i = 0; i < results.size(); i++) {
+						String[] arr = results.get(i);
+						out.println("<div align='center'>" + count + "- POI Name: " +arr[0] +" || Category: " +arr[1] + " || Avg. Rating: " + arr[2] + "</div>");
+						// New feedback, let's increment count
+						count++;
+					}
+		 	 		break;
+		 	 	case(4):
+		 	 	default:
+		 	 		break;
+			}
+			out.println("<p align='center'><a href='user_menu.jsp'>Back to User Menu</a></p>");
+			con.closeConnection();
+		}
+		%>
 
 	</body>
 </html>

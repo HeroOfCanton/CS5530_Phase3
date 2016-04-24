@@ -42,9 +42,5 @@
 				</div><!--col-sm-12-->
 			</div><!--row-->
 		</div><!--container-->
-
-		<!--<a href="orders.sql">orders.sql</a><br>
-		<a href="orders.jsp">orders.jsp</a><br>-->
-
-	</body>
+	</body>	
 </html>
