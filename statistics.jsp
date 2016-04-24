@@ -46,11 +46,11 @@
 						<input type=hidden name="searchAttribute">
 						Enter number of records to return?
 							<input type=text name="limit"><br/>
-						Enter number of category to view:
-						1: Most popular POI's
-						2: Most expensive POI's
-						3: Highly rated POI's
-						4: Return to previous menu
+						Enter number of category to view:<br/>
+						1: Most popular POI's<br/>
+						2: Most expensive POI's<br/>
+						3: Highly rated POI's<br/>
+						4: Return to previous menu<br/>
 							<input type=text name="choice"><br/>
 						<input type=submit>
 					</form>
@@ -85,7 +85,7 @@
 				 	// Walk the arraylist
 					for(int i = 0; i < results.size(); i++) {
 						String[] arr = results.get(i);
-						out.println("<div align='center'>" + count + "- POI Name: " +arr[0] +" || Category: " +arr[1] + " || Total Visits: " + arr[2] + "</div");
+						out.println("<div align='center'>" + count + "- POI Name: " +arr[0] +" || Category: " +arr[1] + " || Total Visits: " + arr[2] + "</div>");
 						// New feedback, let's increment count
 						count++;
 					}
