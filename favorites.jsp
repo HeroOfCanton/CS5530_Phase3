@@ -34,8 +34,10 @@
 		<%
 		String searchAttribute = request.getParameter("searchAttribute");
 		if( searchAttribute == null ) {
-
+		
+		Connector con = new Connector();
 		Favorite favorite = new Favorite();
+		String userName = session.getAttribute("userName").toString();
 		// Function to check to see if user has favorite
 		String existingFavorite = favorite.hasFavorite(userName, con.stmt);
 			
@@ -48,7 +50,7 @@
 					<form name="register_user" method=get onsubmit="return check_all_fields(this)" action="favorites.jsp">
 						<input type=hidden name="searchAttribute">
 						If you have an existing favorite, it will be displayed here<br/>
-						<input type=text name="favvar" value=<%=existingFavorite%>><br/>
+						<input type=text name="favvar" value="<%=existingFavorite%>"><br/>
 						If the field is blank, or if you'd like to change it,<br/>
 						please enter the name of your favorite POI<br/>
 						then type 'Y' into the field below that corresponds<br/>
@@ -70,9 +72,10 @@
 		<%
 		} else {
 			
-			Connector con = new Connector();
+			Connector con =	new Connector();
+                	Favorite favorite = new Favorite();
 			String userName = session.getAttribute("userName").toString();
-			String favvar = request.getParameter("favvar");				
+			String favvar = request.getParameter("favvar");
 			String changechoice = request.getParameter("changechoice");	
 			String newchoice = request.getParameter("newchoice");
 			String changeVar = null;
@@ -85,7 +88,6 @@
 				} else {
 						out.println("<p align='center'>Your favorite has not been changed. Try again.</p>");
 				}
-				return;
 			}
 
 			if(newchoice.equals("Y") || newchoice.equals("y")) {
@@ -97,6 +99,7 @@
 					out.println("<p align='center'>Favorite not saved. Try again</p>");
 				}
 			}
+			out.println("<p align='center'><a href='user_menu.jsp'>Back to User Menu</a></p>");
 			con.closeConnection();
 		}
 		%>
