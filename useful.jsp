@@ -181,8 +181,8 @@
 		} else {
 			Connector con = new Connector();
 			Feedback feedback = new Feedback();
-			POI pid = new POI();
-			String pid
+			POI poi = new POI();
+			String pid;
 			String fid = null;
 			ArrayList<String[]> feedbacks;
 
