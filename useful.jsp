@@ -35,18 +35,12 @@
 
 		<%
 		String searchAttribute = request.getParameter("searchAttribute");
-		String search2 = request.getParameter("search2");
 		if( searchAttribute == null ) {
 		%>
 
 		<div class="container" style="padding-top: 50px;">
 			<div class="row">
-				<div class="col-sm-12">
-					<p align="center">Fill out either form below</p>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-sm-6 text-left">
+				<div class="col-sm-12 text-left">
 					<form name="register_user" method=get onsubmit="return check_all_fields(this)" action="useful.jsp">
 						<input type=hidden name="searchAttribute">
 							<p align="center" style="color: red; border-style: double;">Rate other Feedbacks</p>
@@ -56,112 +50,69 @@
 								<input type=text name="numofFB"><br/>
 						<input type=submit>
 					</form>
-				</div><!--col-sm-6-->
-				<div class="col-sm-6 text-right">
-					<form name="register_user" method=get onsubmit="return check_all_fields(this)" action="useful.jsp">
-						<input type=hidden name="searchAttribute">
-							<p align="center" style="color: green; border-style: double;">See Most Useful Feedbacks</p>
-							Enter the name of the POI to see feedback:
-								<input type=text name="poiName_see"><br/>
-							Enter how many you'd like to see:
-								<input type=text name="numofFB"><br/>
-						<input type=submit>
-					</form>
 					<a href="index.html"><button class="btn"><span>Return</span></button></a>
 				</div><!--col-sm-6-->
 			</div><!--row-->
 		</div><!--container-->
 
-		<% } else if(search2 == null) {
+		<% } else {
 
-			Feedback feedback = new Feedback();
-			POI poi = new POI();
-			Connector con = new Connector();
-			String userName = session.getAttribute("userName").toString();
-			String poiName_see = request.getParameter("poiName_see");
-			String poiName_rate = request.getParameter("poiName_rate");
-				session.setAttribute("poiName_rate", poiName_rate);
+				Feedback feedback = new Feedback();
+				POI poi = new POI();
+				Connector con = new Connector();
+				String userName = session.getAttribute("userName").toString();
+				String poiName_see = request.getParameter("poiName_see");
+				String poiName_rate = request.getParameter("poiName_rate");
+					session.setAttribute("poiName_rate", poiName_rate);
 
-			String userChoice = request.getParameter("category");
-			String numofFB =request.getParameter("numofFB");
-			String pid;
-			String fid;
-			ArrayList<String[]> feedbacks;
+				String userChoice = request.getParameter("category");
+				String numofFB =request.getParameter("numofFB");
+				String pid;
+				String fid;
+				ArrayList<String[]> feedbacks;
 
-			if(poiName_see != null) {
-				
-				pid = poi.getPid(poiName_see, con.stmt);
-				if(pid.equals("")) {
-					out.println("<div align='center'>That POI does not exist</div>");
-					return;
-				}
-				
-				feedbacks = feedback.getPOIFeedback(pid, numofFB, userName, con.stmt);
-				if(feedbacks.size() != 0) {
-					out.println("<div align='center'>Here are the feedbacks for this POI</div>");
-					// Count should start at 1, and only increment when they get a new feedback
-					// which should correspond to a new array in this arraylist
-					int count = 1;
+				if(poiName_see != null) {
 					
-					// Walk the arraylist
-					for(int i = 0; i < feedbacks.size(); i++) {
-						// Get the data from the array
-						// [0] = fid, we don't need this yet, so don't display it
-						// [1] = text of feedback
-						// [2] = feedback score
-						for(int j = 0; j < 1; j++) {
-							String arr[] = feedbacks.get(i);
-							System.out.println("<div align='center'>" + count + ": Feedback: " +arr[0] +" || Score: " +arr[1] + "</div>");
-						}
-						// New feedback, let's increment count
-						count++;
+					pid = poi.getPid(poiName_see, con.stmt);
+					if(pid.equals("")) {
+						out.println("<div align='center'>That POI does not exist</div>");
+						return;
 					}
-					System.out.println("\n");
-				}
-				else {
-					System.out.println("<div align='center'>No feedbacks currently on file for that POI</div>");
-				}
-			}
-			
-			if(poiName_rate != null) {
-				pid = poi.getPid(poiName_rate, con.stmt);
-				if(pid.equals("")) {
-					out.println("<div align='center'>That POI does not exist</div>");
-					return;
-				}
-				// Get the arraylist of string arrays
-				// each array holding an fid, text, and score for the POI
-				feedbacks = feedback.getPOIFeedback(pid, "all", userName, con.stmt);
-				if(feedbacks.size() == 0) {
-					out.println("<div align='center'>No feedbacks currently on file for that POI</div>");
-				}
-			
-				else {
-					out.println("<div align='center'>Here are the feedbacks for this POI</div>");
-					// Count should start at 1, and only increment when they get a new feedback
-					// which should correspond to a new array in this arraylist
-					int count = 1;
 					
-					// Walk the arraylist
-					for(int i = 0; i < feedbacks.size(); i++) {
-						// Get the data from the array
-						// [0] = fid, we don't need this yet, so don't display it
-						// [1] = text of feedback
-						// [2] = feedback score
-						for(int j = 0; j < 1; j++) {
-							String arr[] = feedbacks.get(i);
-							out.println("<div align='center'>" + count + ": Feedback: " +arr[1] +" || Score: " +arr[2] + "</div>");
+					feedbacks = feedback.getPOIFeedback(pid, numofFB, userName, con.stmt);
+					if(feedbacks.size() != 0) {
+						out.println("<div align='center'>Here are the feedbacks for this POI</div>");
+						// Count should start at 1, and only increment when they get a new feedback
+						// which should correspond to a new array in this arraylist
+						int count = 1;
+						
+						// Walk the arraylist
+						for(int i = 0; i < feedbacks.size(); i++) {
+							// Get the data from the array
+							// [0] = fid, we don't need this yet, so don't display it
+							// [1] = text of feedback
+							// [2] = feedback score
+							for(int j = 0; j < 1; j++) {
+								String arr[] = feedbacks.get(i);
+								System.out.println("<div align='center'>" + count + ": Feedback: " +arr[0] +" || Score: " +arr[1] + "</div>");
+							}
+							// New feedback, let's increment count
+							count++;
 						}
-						// New feedback, let's increment count
-						count++;
+						System.out.println("\n");
+					}
+					else {
+						System.out.println("<div align='center'>No feedbacks currently on file for that POI</div>");
 					}
 				}
 			}
-
+		String search2 = request.getParameter("search2");
+		if(search2 == null) {
 		%>
+
 			<div class="container" style="padding-top: 50px;">
 				<div class="row">
-					<div class="col-sm-6 text-left">
+					<div class="col-sm-12 text-center">
 						<form name="register_user" method=get onsubmit="return check_all_fields(this)" action="useful.jsp">
 							<input type=hidden name="search2">
 								<p align="center" style="color: red; border-style: double;">Rate other Feedbacks</p>
