@@ -34,7 +34,7 @@
 		</div>
 
 		<%
-		
+		String search2 = request.getParameter("search2");
 		String searchAttribute = request.getParameter("searchAttribute");
 		if( searchAttribute == null ) {
 		%>
@@ -46,7 +46,7 @@
 						<input type=hidden name="searchAttribute">
 							<p align="center" style="color: red; border-style: double;">Rate other Feedbacks</p>
 							Enter the name of the POI to see feedback:
-								<input type=text name="poiName_rate"><br/>
+								<input type=text name="poiName_see"><br/>
 							Enter how many you'd like to see:
 								<input type=text name="numofFB"><br/>
 						<input type=submit>
@@ -63,8 +63,7 @@
 				Connector con = new Connector();
 				String userName = session.getAttribute("userName").toString();
 				String poiName_see = request.getParameter("poiName_see");
-				String poiName_rate = request.getParameter("poiName_rate");
-					session.setAttribute("poiName_rate", poiName_rate);
+					session.setAttribute("poiName_see", poiName_see);
 
 				String userChoice = request.getParameter("category");
 				String numofFB =request.getParameter("numofFB");
@@ -95,25 +94,24 @@
 							// [2] = feedback score
 							for(int j = 0; j < 1; j++) {
 								String arr[] = feedbacks.get(i);
-								System.out.println("<div align='center'>" + count + ": Feedback: " +arr[0] +" || Score: " +arr[1] + "</div>");
+								out.println("<div align='center'>" + count + ": Feedback: " +arr[0] +" || Score: " +arr[1] + "</div>");
 							}
 							// New feedback, let's increment count
 							count++;
 						}
-						System.out.println("\n");
 					}
 					else {
 						System.out.println("<div align='center'>No feedbacks currently on file for that POI</div>");
 					}
 				}
 			}
-		String search2 = request.getParameter("search2");
-		if(searchAttribute != null && search2 == null) {
+		String rateChoice = request.getParameter("rateChoice");
+		String rating = request.getParameter("rating");
+		search2 = request.getParameter("search2");
+		if(searchAttribute != null && search2 == null && rateChoice == null) {
 		%>
 
-			<div class="container" style="padding-top: 50px;">
-				<div class="row">
-					<div class="col-sm-12 text-center">
+
 						<form name="register_user" method=get onsubmit="return check_all_fields(this)" action="useful.jsp">
 							<input type=hidden name="search2">
 								<p align="center" style="color: red; border-style: double;">Rate other Feedbacks</p>
@@ -124,13 +122,9 @@
 									<input type=text name="rating"><br/>
 							<input type=submit>
 						</form>
-					</div><!--col-sm-6-->
-				</div><!--row-->
-			</div><!--container-->
-
 
 		<%
-		} else if(searchAttribute != null && search2 != null) {
+		} else if(rateChoice != null && rating != null) {
 			Connector con = new Connector();
 			Feedback feedback = new Feedback();
 			POI poi = new POI();
@@ -139,9 +133,9 @@
 			ArrayList<String[]> feedbacks;
 
 			String userName = session.getAttribute("userName").toString();
-			String poiName_rate = session.getAttribute("poiName_rate").toString();
-			String rateChoice = request.getParameter("rateChoice");
-			String rating = request.getParameter("rating");	
+			String poiName_rate = session.getAttribute("poiName_see").toString();
+			rateChoice = request.getParameter("rateChoice");
+			rating = request.getParameter("rating");	
 
 			pid = poi.getPid(poiName_rate, con.stmt);
 			feedbacks = feedback.getPOIFeedback(pid, "all", userName, con.stmt);
