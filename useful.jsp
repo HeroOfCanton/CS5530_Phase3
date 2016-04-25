@@ -101,7 +101,7 @@
 						}
 					}
 					else {
-						System.out.println("<div align='center'>No feedbacks currently on file for that POI</div>");
+						out.println("<div align='center'>No feedbacks currently on file for that POI</div>");
 					}
 				}
 			}
@@ -138,11 +138,12 @@
 			rating = request.getParameter("rating");	
 
 			pid = poi.getPid(poiName_rate, con.stmt);
+			out.println(poiName_rate);
+
 			feedbacks = feedback.getPOIFeedback(pid, "all", userName, con.stmt);
 				if(feedbacks.size() == 0) {
 					out.println("<div align='center'>No feedbacks currently on file for that POI</div>");
 				}
-
 			// Convert their choice to an int, so we can use it in the array
 			int rateChoiceNum = Integer.parseInt(rateChoice);
 			
@@ -153,6 +154,7 @@
 			// and that should correspond to the arraylist position of the feedback they want to rate
 			// and hopefully this janky looking syntax works
 			fid = feedbacks.get(rateChoiceNum)[0];
+			out.println(fid);
 				
 			// Now that we have it all, let's try adding it to the Rates table
 			if(feedback.rateFeedback(userName, fid, rating, con.stmt)) {
