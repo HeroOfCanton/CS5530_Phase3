@@ -1,4 +1,6 @@
 <%@ page language="java" import="cs5530.*" %>
+<%@ page import="java.util.ArrayList" %>
+
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 	<head>
@@ -31,16 +33,175 @@
 			</div>
 		</div>
 
-		<div class="container">
+		<%
+		String searchAttribute = request.getParameter("searchAttribute");
+		if( searchAttribute == null ) {
+		%>
+
+		<div class="container" style="padding-top: 50px;">
 			<div class="row">
-				<div class="col-sm-12 text-center">
-					
-				</div><!--col-sm-12-->
+				<div class="col-sm-12">
+					<p align="center">Fill out either form below</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-6 text-left">
+					<form name="register_user" method=get onsubmit="return check_all_fields(this)" action="useful.jsp">
+						<input type=hidden name="searchAttribute">
+							<p align="center" style="color: red; border-style: double;">Rate other Feedbacks</p>
+							Enter the name of the POI to see feedback:
+								<input type=text name="poiName_rate"><br/>
+							Enter how many you'd like to see:
+								<input type=text name="numofFB"><br/>
+						<input type=submit>
+					</form>
+				</div><!--col-sm-6-->
+				<div class="col-sm-6 text-right">
+					<form name="register_user" method=get onsubmit="return check_all_fields(this)" action="useful.jsp">
+						<input type=hidden name="searchAttribute">
+							<p align="center" style="color: green; border-style: double;">See Most Useful Feedbacks</p>
+							Enter the name of the POI to see feedback:
+								<input type=text name="poiName_see"><br/>
+							Enter how many you'd like to see:
+								<input type=text name="numofFB"><br/>
+						<input type=submit>
+					</form>
+					<a href="index.html"><button class="btn"><span>Return</span></button></a>
+				</div><!--col-sm-6-->
 			</div><!--row-->
 		</div><!--container-->
 
-		<!--<a href="orders.sql">orders.sql</a><br>
-		<a href="orders.jsp">orders.jsp</a><br>-->
+		<% } else if(search2 == null) {
+
+			Feedback feedback = new Feedback();
+			POI poi = new POI();
+			Connector con = new Connector();
+			String userName = session.getAttribute("userName").toString();
+			String poiName_see = request.getParameter("poiName_see");
+			String poiName_rate = request.getParameter("poiName_rate");
+
+			String userChoice = request.getParameter("category");
+			String numofFB =request.getParameter("numofFB");
+			String pid;
+			String fid;
+			ArrayList<String[]> feedbacks;
+
+			if(poiName_see != null) {
+				
+				pid = poi.getPid(poiName_see, con.stmt);
+				if(pid.equals("")) {
+					out.println("<div align='center'>That POI does not exist</div>");
+					return;
+				}
+				
+				feedbacks = feedback.getPOIFeedback(pid, numofFB, userName, con.stmt);
+				if(feedbacks.size() != 0) {
+					out.println("<div align='center'>Here are the feedbacks for this POI</div>");
+					// Count should start at 1, and only increment when they get a new feedback
+					// which should correspond to a new array in this arraylist
+					int count = 1;
+					
+					// Walk the arraylist
+					for(int i = 0; i < feedbacks.size(); i++) {
+						// Get the data from the array
+						// [0] = fid, we don't need this yet, so don't display it
+						// [1] = text of feedback
+						// [2] = feedback score
+						for(int j = 0; j < 1; j++) {
+							String arr[] = feedbacks.get(i);
+							System.out.println("<div align='center'>" + count + ": Feedback: " +arr[0] +" || Score: " +arr[1] + "</div>");
+						}
+						// New feedback, let's increment count
+						count++;
+					}
+					System.out.println("\n");
+				}
+				else {
+					System.out.println("<div align='center'>No feedbacks currently on file for that POI</div>");
+				}
+			}
+			
+			if(poiName_rate != null) {
+				pid = poi.getPid(poiName_rate, con.stmt);
+				if(pid.equals("")) {
+					out.println("<div align='center'>That POI does not exist</div>");
+					return;
+				}
+				// Get the arraylist of string arrays
+				// each array holding an fid, text, and score for the POI
+				feedbacks = feedback.getPOIFeedback(pid, "all", userName, con.stmt);
+				if(feedbacks.size() == 0) {
+					out.println("<div align='center'>No feedbacks currently on file for that POI</div>");
+				}
+			
+				else {
+					out.println("<div align='center'>Here are the feedbacks for this POI</div>");
+					// Count should start at 1, and only increment when they get a new feedback
+					// which should correspond to a new array in this arraylist
+					int count = 1;
+					
+					// Walk the arraylist
+					for(int i = 0; i < feedbacks.size(); i++) {
+						// Get the data from the array
+						// [0] = fid, we don't need this yet, so don't display it
+						// [1] = text of feedback
+						// [2] = feedback score
+						for(int j = 0; j < 1; j++) {
+							String arr[] = feedbacks.get(i);
+							out.println("<div align='center'>" + count + ": Feedback: " +arr[1] +" || Score: " +arr[2] + "</div>");
+						}
+						// New feedback, let's increment count
+						count++;
+					}
+				}
+			}
+
+		%>
+			<div class="container" style="padding-top: 50px;">
+				<div class="row">
+					<div class="col-sm-6 text-left">
+						<form name="register_user" method=get onsubmit="return check_all_fields(this)" action="useful.jsp">
+							<input type=hidden name="search2">
+								<p align="center" style="color: red; border-style: double;">Rate other Feedbacks</p>
+								Please choose which number to rate:
+									<input type=text name="rateChoice"><br/>
+								On a scale of 0 - Useless / 1 - Useful / 2 - Very Useful<br/>
+								Rate this feedback:
+									<input type=text name="rating"><br/>
+							<input type=submit>
+						</form>
+					</div><!--col-sm-6-->
+				</div><!--row-->
+			</div><!--container-->
+
+
+		<%
+		} else {
+		
+			String rateChoice = request.getParameter("rateChoice");
+			String rating = request.getParameter("rating");	
+			// Convert their choice to an int, so we can use it in the array
+			int rateChoiceNum = Integer.parseInt(rateChoice);
+			
+			// Arrays start at 0, user's options start at 1, so -- to make them match
+			rateChoiceNum--;
+				
+			// If all goes well, their ratechoice has been converted to an int at this point
+			// and that should correspond to the arraylist position of the feedback they want to rate
+			// and hopefully this janky looking syntax works
+			fid = feedbacks.get(rateChoiceNum)[0];
+				
+			// Now that we have it all, let's try adding it to the Rates table
+			if(feedback.rateFeedback(userName, fid, rating, con.stmt)) {
+				out.println("<div align='center'>Your rating has been saved successfully</div>");
+			}
+			else {
+				out.println("<div align='center'>Your rating has not been saved</div>");
+			}
+			out.println("<p align='center'><a href='user_menu.jsp'>Back to User Menu</a></p>");
+			con.closeConnection();
+		}
+		%>
 
 	</body>
 </html>

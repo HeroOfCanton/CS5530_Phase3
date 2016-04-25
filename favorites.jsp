@@ -73,7 +73,7 @@
 		} else {
 			
 			Connector con =	new Connector();
-                	Favorite favorite = new Favorite();
+            Favorite favorite = new Favorite();
 			String userName = session.getAttribute("userName").toString();
 			String favvar = request.getParameter("favvar");
 			String changechoice = request.getParameter("changechoice");	
