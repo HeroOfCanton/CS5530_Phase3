@@ -80,6 +80,7 @@
 			String userName = session.getAttribute("userName").toString();
 			String poiName_see = request.getParameter("poiName_see");
 			String poiName_rate = request.getParameter("poiName_rate");
+				session.setAttribute("poiName_rate", poiName_rate);
 
 			String userChoice = request.getParameter("category");
 			String numofFB =request.getParameter("numofFB");
@@ -180,9 +181,22 @@
 		} else {
 			Connector con = new Connector();
 			Feedback feedback = new Feedback();
+			POI pid = new POI();
+			String pid
 			String fid = null;
+			ArrayList<String[]> feedbacks;
+
+			String userName = session.getAttribute("userName").toString();
+			String poiName_rate = session.getAttribute("poiName_rate").toString();
 			String rateChoice = request.getParameter("rateChoice");
 			String rating = request.getParameter("rating");	
+
+			pid = poi.getPid(poiName_rate, con.stmt);
+			feedbacks = feedback.getPOIFeedback(pid, "all", userName, con.stmt);
+				if(feedbacks.size() == 0) {
+					out.println("<div align='center'>No feedbacks currently on file for that POI</div>");
+				}
+
 			// Convert their choice to an int, so we can use it in the array
 			int rateChoiceNum = Integer.parseInt(rateChoice);
 			
