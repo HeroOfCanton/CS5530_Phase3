@@ -35,6 +35,7 @@
 
 		<%
 		String searchAttribute = request.getParameter("searchAttribute");
+		String search2 = request.getParameter("search2");
 		if( searchAttribute == null ) {
 		%>
 
@@ -177,7 +178,9 @@
 
 		<%
 		} else {
-		
+			Connector con = new Connector();
+			Feedback feedback = new Feedback();
+			String fid = null;
 			String rateChoice = request.getParameter("rateChoice");
 			String rating = request.getParameter("rating");	
 			// Convert their choice to an int, so we can use it in the array
