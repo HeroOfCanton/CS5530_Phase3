@@ -54,7 +54,7 @@
 							<input type=text name="choice"><br/>
 						<input type=submit>
 					</form>
-					<a href="index.html"><button class="btn"><span>Return</span></button></a>
+					<a href="user_menu.jsp"><button class="btn"><span>Return</span></button></a>
 				</div><!--col-sm-6-->
 				<div class="col-sm-4"></div>
 			</div><!--row-->

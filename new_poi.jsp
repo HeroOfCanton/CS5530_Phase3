@@ -75,7 +75,7 @@
 						<input type=text name="category" placeholder="Grocery, Service etc."><br/>
 						<input type=submit>
 					</form>
-					<a href="index.html"><button class="btn"><span>Return</span></button></a>
+					<a href="admin_menu.jsp"><button class="btn"><span>Return</span></button></a>
 				</div><!--col-sm-6-->
 				<div class="col-sm-4"></div>
 			</div><!--row-->

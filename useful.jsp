@@ -34,9 +34,9 @@
 		</div>
 
 		<%
-		String search2 = request.getParameter("search2");
+		String done = session.getAttribute("done").toString();
 		String searchAttribute = request.getParameter("searchAttribute");
-		if( searchAttribute == null ) {
+		if( searchAttribute == null && done.equals("no")) {
 		%>
 
 		<div class="container" style="padding-top: 50px;">
@@ -51,7 +51,7 @@
 								<input type=text name="numofFB"><br/>
 						<input type=submit>
 					</form>
-					<a href="index.html"><button class="btn"><span>Return</span></button></a>
+					<a href="user_menu.jsp"><button class="btn"><span>Return</span></button></a>
 				</div><!--col-sm-6-->
 			</div><!--row-->
 		</div><!--container-->
@@ -107,7 +107,7 @@
 			}
 		String rateChoice = request.getParameter("rateChoice");
 		String rating = request.getParameter("rating");
-		search2 = request.getParameter("search2");
+		String search2 = request.getParameter("search2");
 		if(searchAttribute != null && search2 == null && rateChoice == null) {
 		%>
 
@@ -138,8 +138,7 @@
 			rating = request.getParameter("rating");	
 
 			pid = poi.getPid(poiName_rate, con.stmt);
-			out.println(poiName_rate);
-
+			
 			feedbacks = feedback.getPOIFeedback(pid, "all", userName, con.stmt);
 				if(feedbacks.size() == 0) {
 					out.println("<div align='center'>No feedbacks currently on file for that POI</div>");
@@ -154,14 +153,13 @@
 			// and that should correspond to the arraylist position of the feedback they want to rate
 			// and hopefully this janky looking syntax works
 			fid = feedbacks.get(rateChoiceNum)[0];
-			out.println(fid);
-				
+							
 			// Now that we have it all, let's try adding it to the Rates table
 			if(feedback.rateFeedback(userName, fid, rating, con.stmt)) {
-				out.println("<div align='center'>Your rating has been saved successfully</div>");
+				out.println("<div align='center'><h2>Your rating has been saved successfully</h2></div>");
 			}
 			else {
-				out.println("<div align='center'>Your rating has not been saved</div>");
+				out.println("<div align='center'>NO DUPLICATES. Your rating has not been saved</div>");
 			}
 			out.println("<p align='center'><a href='user_menu.jsp'>Back to User Menu</a></p>");
 			con.closeConnection();

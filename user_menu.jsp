@@ -42,6 +42,7 @@
 					<a href="useful.jsp"><button class="btn"><span>Usefulness of Other Feedbacks</span></button></a>
 					<a href="statistics.jsp"><button class="btn"><span>Site Statistics</span></button></a>
 					<a href="index.html"><button class="btn"><span>Return</span></button></a>
+					<% session.setAttribute("done", "no"); %>
 				</div><!--col-sm-12-->
 			</div><!--row-->
 		</div><!--container-->
