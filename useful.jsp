@@ -34,6 +34,7 @@
 		</div>
 
 		<%
+		
 		String searchAttribute = request.getParameter("searchAttribute");
 		if( searchAttribute == null ) {
 		%>
@@ -107,7 +108,7 @@
 				}
 			}
 		String search2 = request.getParameter("search2");
-		if(search2 == null) {
+		if(searchAttribute != null && search2 == null) {
 		%>
 
 			<div class="container" style="padding-top: 50px;">
@@ -129,7 +130,7 @@
 
 
 		<%
-		} else {
+		} else if(searchAttribute != null && search2 != null) {
 			Connector con = new Connector();
 			Feedback feedback = new Feedback();
 			POI poi = new POI();
